@@ -18,8 +18,14 @@ public class Main {
         /**
          * account
          */
-        Account acc = new Account(conn);
-        acc.createAccount("Samiul Islam", 5000.00);
-        acc.getAccountDetails(11);
+//        Account acc = new Account(conn);
+//        acc.createAccount("Samiul Islam", 5000.00);
+//        acc.getAccountDetails(11);
+
+        /**
+         * transaction
+         */
+        Transaction tran = new Transaction(conn);
+        tran.deposit(12, 129);
     }
 }
