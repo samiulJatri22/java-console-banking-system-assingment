@@ -84,10 +84,15 @@ public class Transaction {
                 throw new Exception("Receiver Account not found!");
             }
 
-            String senderBalanceSubTractionSql = "update account set balance=" + (currentBalance-amount) + " where account_id=" + sourceAccountId;
-            stmt.executeQuery(senderBalanceSubTractionSql);
+            double currentBalance2 = targetAccountRs.getDouble("balance");
+            System.out.println("currentBalance2"+currentBalance2);
 
-            this.deposit(targetAccountId, amount);
+            String senderBalanceSubTractionSql = "update account set balance=" + (currentBalance-amount) + " where account_id=" + sourceAccountId;
+            stmt.executeUpdate(senderBalanceSubTractionSql);
+
+            String targetBalanceSumTractionSql = "update account set balance=" + (amount+ currentBalance2) + " where account_id=" + targetAccountId;
+            stmt.executeUpdate(targetBalanceSumTractionSql);
+
             this.createTransaction(sourceAccountId, "TRANSFER", amount);
         }catch (Exception e){
             System.out.println(e.getMessage());
