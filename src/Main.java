@@ -1,7 +1,8 @@
 import java.sql.Connection;
+import java.sql.SQLException;
 
 public class Main {
-    public static void main(String[] args)  {
+    public static void main(String[] args) throws SQLException {
         /**
          * connection create with database
          * */
@@ -45,5 +46,29 @@ public class Main {
         acc.getAccountDetails(2);
         System.out.println("---------------------------------------------------------------");
 
+        /**
+         * using thread on transaction
+         */
+
+        Thread t1 = new Thread(() -> {
+            try {
+                tran.deposit(1, 1000.00);
+                acc.getAccountDetails(1);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+
+        Thread t2 = new Thread(() -> {
+            try {
+                tran.withdraw(2, 500.00);
+                acc.getAccountDetails(2);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+
+        t1.start();
+        t2.start();
     }
 }

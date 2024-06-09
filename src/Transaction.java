@@ -1,7 +1,4 @@
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
 
 public class Transaction {
     Connection con;
@@ -10,8 +7,10 @@ public class Transaction {
         this.con = con;
     }
 
-    public void deposit(int accountId, double amount) {
+    public void deposit(int accountId, double amount) throws SQLException {
         try{
+            this.con.setAutoCommit(false);
+
             String sql = "select balance from account where account_id=" + accountId;
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
@@ -29,14 +28,17 @@ public class Transaction {
             }
 
             this.createTransaction(accountId, "DEPOSIT", amount);
-
+            this.con.commit();
         }catch(Exception e){
+            this.con.rollback();
             System.out.println(e.getMessage());
         }
     }
 
-    public void withdraw(int accountId, double amount) {
+    public void withdraw(int accountId, double amount) throws SQLException {
         try{
+            this.con.setAutoCommit(false);
+
             String sql = "select balance from account where account_id=" + accountId;
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
@@ -58,13 +60,17 @@ public class Transaction {
 
             this.createTransaction(accountId, "WITHDRAW", amount);
 
+            this.con.commit();
         }catch(Exception e){
+            this.con.rollback();
             System.out.println(e.getMessage());
         }
     }
 
-    public void transfer(int sourceAccountId, int targetAccountId, double amount) {
+    public void transfer(int sourceAccountId, int targetAccountId, double amount) throws SQLException {
         try{
+            this.con.setAutoCommit(false);
+
             String sourceAccountSql = "select balance from account where account_id=" + sourceAccountId;
             Statement stmt = con.createStatement();
             ResultSet sourceAccountRs = stmt.executeQuery(sourceAccountSql);
@@ -94,7 +100,10 @@ public class Transaction {
             stmt.executeUpdate(targetBalanceSumTractionSql);
 
             this.createTransaction(sourceAccountId, "TRANSFER", amount);
+
+            this.con.commit();
         }catch (Exception e){
+            this.con.rollback();
             System.out.println(e.getMessage());
         }
     }
