@@ -11,7 +11,7 @@ public class DBTableInitializer {
     public void createAccountTable () {
         try{
             String sql = "create table if not exists account ("
-                        + "account_id serial primary key, "
+                        + "account_id varchar(10) primary key, "
                         + "account_holder_name varchar(55) not null, "
                         + "balance decimal(10,2) not null "
                         + ")";
@@ -29,7 +29,7 @@ public class DBTableInitializer {
         try {
             String sql = "create table if not exists transaction ("
                     + "transaction_id serial primary key, "
-                    + "account_id integer not null, "
+                    + "account_id varchar(10) not null, "
                     + "transaction_type varchar(10) not null, "
                     + "amount decimal(10,2) not null, "
                     + "timestamp timestamp default current_timestamp, "
