@@ -20,31 +20,30 @@ public class Main {
          * account
          */
         Account acc = new Account(conn);
-        acc.createAccount("Samiul Islam", 5000.00);
-        acc.getAccountDetails(1);
+        acc.createAccount("Account_017", "Samiul Islam", 136500.00);
         System.out.println("---------------------------------------------------------------");
 
-        acc.createAccount("Akash", 5000.00);
-        acc.getAccountDetails(11);
-        System.out.println("---------------------------------------------------------------");
+        // acc.createAccount("Akash", 5000.00);
+        // acc.getAccountDetails(11);
+        // System.out.println("---------------------------------------------------------------");
 
         /**
          * transaction
-         */
-        Transaction tran = new Transaction(conn);
-        tran.deposit(1, 1000.00);
-        acc.getAccountDetails(1);
-        System.out.println("---------------------------------------------------------------");
+        //  */
+        // Transaction tran = new Transaction(conn);
+        // tran.deposit(1, 1000.00);
+        // acc.getAccountDetails(1);
+        // System.out.println("---------------------------------------------------------------");
 
-        tran.withdraw(1, 500.00);
-        acc.getAccountDetails(1);
-        System.out.println("---------------------------------------------------------------");
+        // tran.withdraw(1, 500.00);
+        // acc.getAccountDetails(1);
+        // System.out.println("---------------------------------------------------------------");
 
-        tran.transfer(1, 2, 1000.00);
-        acc.getAccountDetails(1);
-        System.out.println("---------------------------------------------------------------");
-        acc.getAccountDetails(2);
-        System.out.println("---------------------------------------------------------------");
+        // tran.transfer(1, 2, 1000.00);
+        // acc.getAccountDetails(1);
+        // System.out.println("---------------------------------------------------------------");
+        // acc.getAccountDetails(2);
+        // System.out.println("---------------------------------------------------------------");
 
         /**
          * using thread on transaction
@@ -52,8 +51,8 @@ public class Main {
 
         Thread t1 = new Thread(() -> {
             try {
-                tran.deposit(1, 1000.00);
-                acc.getAccountDetails(1);
+                tran.deposit("Account_017", 21000.00);
+                acc.getAccountDetails("Account_017");
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -61,8 +60,8 @@ public class Main {
 
         Thread t2 = new Thread(() -> {
             try {
-                tran.withdraw(2, 500.00);
-                acc.getAccountDetails(2);
+                tran.withdraw("Account_2021200010011", 9450.00);
+                acc.getAccountDetails("Account_2021200010011");
             } catch (Exception e) {
                 e.printStackTrace();
             }
