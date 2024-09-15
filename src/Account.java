@@ -8,13 +8,14 @@ public class Account {
         this.con = con;
     }
 
-    public void createAccount(String accountHolderName, double balance){
+    public void createAccount(String accountId, String accountHolderName, double balance){
         try {
-            String sql = "INSERT INTO account (account_holder_name, balance) VALUES (?,?)";
+            String sql = "INSERT INTO account (account_id ,account_holder_name, balance) VALUES (?,?,?)";
 
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setString(1, accountHolderName);
-            ps.setDouble(2, balance);
+            ps.setString(1, accountId);
+            ps.setString(2, accountHolderName);
+            ps.setDouble(3, balance);
 
             int res = ps.executeUpdate();
 
