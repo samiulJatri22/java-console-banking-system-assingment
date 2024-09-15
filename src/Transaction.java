@@ -7,7 +7,7 @@ public class Transaction {
         this.con = con;
     }
 
-    public void deposit(int accountId, double amount) throws SQLException {
+    public void deposit(String accountId, double amount) throws SQLException {
         try{
             this.con.setAutoCommit(false);
 
@@ -35,7 +35,7 @@ public class Transaction {
         }
     }
 
-    public void withdraw(int accountId, double amount) throws SQLException {
+    public void withdraw(String accountId, double amount) throws SQLException {
         try{
             this.con.setAutoCommit(false);
 
@@ -67,7 +67,7 @@ public class Transaction {
         }
     }
 
-    public void transfer(int sourceAccountId, int targetAccountId, double amount) throws SQLException {
+    public void transfer(String sourceAccountId, String targetAccountId, double amount) throws SQLException {
         try{
             this.con.setAutoCommit(false);
 
@@ -108,12 +108,12 @@ public class Transaction {
         }
     }
 
-    public void createTransaction(int accountId, String transactionType, double amount) {
+    public void createTransaction(String accountId, String transactionType, double amount) {
         try{
             String sql = "insert into transaction (account_id,transaction_type,amount) values(?,?,?)";
 
             PreparedStatement pstmt = con.prepareStatement(sql);
-            pstmt.setInt(1, accountId);
+            pstmt.setString(1, accountId);
             pstmt.setString(2, transactionType);
             pstmt.setDouble(3, amount);
 
